@@ -1,0 +1,50 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    max-width: 960px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-top: 40px;
+}
+
+.title {
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.archive-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-item {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+
+    &:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 15px;
+    }
+}
