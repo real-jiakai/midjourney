@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        img {
+            object-fit: contain;
+        }
+        
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+        
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+        
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+        
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+        
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+        
+        body {
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 17px;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+        
+        .messages-list-container {
+            padding: 5px;
+        }
+        
+        .message-avatar {
+            margin-right: 20px;
+        }
+        
+        .message-box {
+            border-top: 1px solid #bdbdbd;
+            padding: 5px;
+            display: flex;
+            justify-content: start;
+            align-items: start;
+        }
+        
+        .message-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+        }
+        
+        .message-date {
+            color: #616161;
+            font-size: 12px;
+            font-weight: 300;
+        }
+        
+        .message-author {
+            color: #212121;
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .message-content {
+            color: #212121;
+            font-size: 16px;
+            margin-top: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        
+        .message-embeded {
+            display: flex;
+            justify-content: start;
+            /* align-items: stretch; */
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        
+        .embed-text {
+            font-size: 15px;
+            color: #212121;
+        }
+        
+        .embed-description {
+            font-size: 13px;
+            color: #424242;
+        }
+        
+        .embed-image {
+            max-width: 1200px;
+        }
+        
+        .embed-image-box {
+            margin-right: 10px;
+        }
+        
+        .thumbnail-image {
+            max-width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- top bar -->
+    <div>
+        <h1 id="chatlogs-title" class="top-bar">
+            <img id="server-icon" src="" />
+        </h1>
+    </div>
+
+    <!-- messages list -->
+    <div class="messages-list-container" id="chatlogs-message-list-container"></div>
+</body>
+
+<script>
+    function get_avatar_url(author_id, avatar) {
+        if (!avatar) {
+            return 'https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png';
+        }
+
+        if (avatar.indexOf('a_') == 0) {
+            //gif
+            return `https://cdn.discordapp.com/avatars/${author_id}/${avatar}.gif`;
+        }
+        return `https://cdn.discordapp.com/avatars/${author_id}/${avatar}.png`;
+    }
+
+    let title = 'CHAT_EXPORT_TITLE';
+    let messages = [{"id":"1119807076819013655","type":7,"content":"","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[],"embeds":[],"mentions":[],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:53:32.123000+00:00","edited_timestamp":null,"flags":0,"components":[]},{"id":"1119807721173168221","type":0,"content":"**Sparks of stars can ignite the plains.** - <@1116786531357687910> (Open on website for full quality) (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119807721051541655","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","size":1879526,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119807721051541655/oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119807721051541655/oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","width":1856,"height":2464,"content_type":"image/webp"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:56:05.749000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::bb0ccfb6-1077-4883-9771-c503b33a6fa4::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":1,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V4"}]}]},{"id":"1119807982256013392","type":19,"content":"**Sparks of stars can ignite the plains.** - Variations by <@1116786531357687910> (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119807981794631760","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","size":7348406,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119807981794631760/oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119807981794631760/oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","width":1856,"height":2464,"content_type":"image/png"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:57:07.996000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::5684b4bf-8285-4907-a1a5-740ce153161a::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::5684b4bf-8285-4907-a1a5-740ce153161a","style":1,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V4"}]}],"message_reference":{"channel_id":"1119807003611648133","message_id":"1119807721173168221","guild_id":"1119807002776973323"},"referenced_message":{"id":"1119807721173168221","type":0,"content":"**Sparks of stars can ignite the plains.** - <@1116786531357687910> (Open on website for full quality) (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119807721051541655","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","size":1879526,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119807721051541655/oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119807721051541655/oneniezq_Sparks_of_stars_can_ignite_the_plains._bb0ccfb6-1077-4883-9771-c503b33a6fa4.webp","width":1856,"height":2464,"content_type":"image/webp"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:56:05.749000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::bb0ccfb6-1077-4883-9771-c503b33a6fa4::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":1,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::bb0ccfb6-1077-4883-9771-c503b33a6fa4","style":2,"label":"V4"}]}]}},{"id":"1119808210979794966","type":19,"content":"**Sparks of stars can ignite the plains.** - Variations by <@1116786531357687910> (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119808210501632030","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","size":7200834,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119808210501632030/oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119808210501632030/oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","width":1856,"height":2464,"content_type":"image/png"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:58:02.528000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::0d25102b-1902-48cf-8b03-a130acc609a8","style":1,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::0d25102b-1902-48cf-8b03-a130acc609a8::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V4"}]}],"message_reference":{"channel_id":"1119807003611648133","message_id":"1119807982256013392","guild_id":"1119807002776973323"},"referenced_message":{"id":"1119807982256013392","type":19,"content":"**Sparks of stars can ignite the plains.** - Variations by <@1116786531357687910> (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119807981794631760","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","size":7348406,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119807981794631760/oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119807981794631760/oneniezq_Sparks_of_stars_can_ignite_the_plains._5684b4bf-8285-4907-a1a5-740ce153161a.png","width":1856,"height":2464,"content_type":"image/png"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:57:07.996000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::5684b4bf-8285-4907-a1a5-740ce153161a::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::5684b4bf-8285-4907-a1a5-740ce153161a","style":1,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::5684b4bf-8285-4907-a1a5-740ce153161a","style":2,"label":"V4"}]}],"message_reference":{"channel_id":"1119807003611648133","message_id":"1119807721173168221","guild_id":"1119807002776973323"}}},{"id":"1119808303346761819","type":19,"content":"**Sparks of stars can ignite the plains.** - Image #3 <@1116786531357687910>","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119808303027986502","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._f63cdeef-5291-4875-95cf-60d22bb372e1.png","size":1797856,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119808303027986502/oneniezq_Sparks_of_stars_can_ignite_the_plains._f63cdeef-5291-4875-95cf-60d22bb372e1.png","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119808303027986502/oneniezq_Sparks_of_stars_can_ignite_the_plains._f63cdeef-5291-4875-95cf-60d22bb372e1.png","width":928,"height":1232,"content_type":"image/png"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:58:24.550000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::f63cdeef-5291-4875-95cf-60d22bb372e1::SOLO","style":2,"label":"Make Variations","emoji":{"name":"🪄"}},{"type":2,"style":5,"label":"Web","url":"https://www.midjourney.com/app/jobs/f63cdeef-5291-4875-95cf-60d22bb372e1/"}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::BOOKMARK::f63cdeef-5291-4875-95cf-60d22bb372e1","style":2,"label":"Favorite","emoji":{"name":"❤️"}}]}],"message_reference":{"channel_id":"1119807003611648133","message_id":"1119808210979794966","guild_id":"1119807002776973323"},"referenced_message":{"id":"1119808210979794966","type":19,"content":"**Sparks of stars can ignite the plains.** - Variations by <@1116786531357687910> (fast)","channel_id":"1119807003611648133","author":{"id":"1022952195194359889","username":"niji・journey Bot","avatar":"5a26835edb65d6bd1a932f73b044ec33","discriminator":"2295","public_flags":589824,"flags":589824,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[{"id":"1119808210501632030","filename":"oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","size":7200834,"url":"https://cdn.discordapp.com/attachments/1119807003611648133/1119808210501632030/oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","proxy_url":"https://media.discordapp.net/attachments/1119807003611648133/1119808210501632030/oneniezq_Sparks_of_stars_can_ignite_the_plains._0d25102b-1902-48cf-8b03-a130acc609a8.png","width":1856,"height":2464,"content_type":"image/png"}],"embeds":[],"mentions":[{"id":"1116786531357687910","username":"lili.li.","avatar":"664d8d8f27ab40a137a29a95258a4661","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"hhh","avatar_decoration":null,"display_name":"hhh","banner_color":null}],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T01:58:02.528000+00:00","edited_timestamp":null,"flags":0,"components":[{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::upsample::1::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U1"},{"type":2,"custom_id":"MJ::JOB::upsample::2::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U2"},{"type":2,"custom_id":"MJ::JOB::upsample::3::0d25102b-1902-48cf-8b03-a130acc609a8","style":1,"label":"U3"},{"type":2,"custom_id":"MJ::JOB::upsample::4::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"U4"},{"type":2,"custom_id":"MJ::JOB::reroll::0::0d25102b-1902-48cf-8b03-a130acc609a8::SOLO","style":2,"emoji":{"name":"🔄"}}]},{"type":1,"components":[{"type":2,"custom_id":"MJ::JOB::variation::1::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V1"},{"type":2,"custom_id":"MJ::JOB::variation::2::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V2"},{"type":2,"custom_id":"MJ::JOB::variation::3::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V3"},{"type":2,"custom_id":"MJ::JOB::variation::4::0d25102b-1902-48cf-8b03-a130acc609a8","style":2,"label":"V4"}]}],"message_reference":{"channel_id":"1119807003611648133","message_id":"1119807982256013392","guild_id":"1119807002776973323"}}},{"id":"1119824478390722621","type":7,"content":"","channel_id":"1119807003611648133","author":{"id":"1086039040912003103","username":"linen","avatar":"d0d6e153bba598e3484676582b2aa748","discriminator":"4328","public_flags":0,"flags":0,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[],"embeds":[],"mentions":[],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-06-18T03:02:40.981000+00:00","edited_timestamp":null,"flags":0,"components":[]},{"id":"1125400261893038080","type":7,"content":"","channel_id":"1119807003611648133","author":{"id":"1086039040912003103","username":"linen","avatar":"d0d6e153bba598e3484676582b2aa748","discriminator":"4328","public_flags":0,"flags":0,"bot":true,"banner":null,"accent_color":null,"global_name":null,"avatar_decoration":null,"display_name":null,"banner_color":null},"attachments":[],"embeds":[],"mentions":[],"mention_roles":[],"pinned":false,"mention_everyone":false,"tts":false,"timestamp":"2023-07-03T12:18:51.361000+00:00","edited_timestamp":null,"flags":0,"components":[]}];
+
+    document.querySelector('#server-icon').src = 'https://cdn.discordapp.com/icons/1119807002776973323/1b76dd450b89d2b898b0218fc057e5be.webp?size=96';
+
+    let msg_list_container = document.querySelector('#chatlogs-message-list-container');
+    messages.forEach(elmt => {
+        let message_box = document.createElement('div');
+        message_box.classList.add('message-box');
+
+        let img_avatar = document.createElement('img');
+        img_avatar.classList.add('message-avatar');
+        img_avatar.width = '64';
+        img_avatar.height = '64';
+        img_avatar.src = get_avatar_url(elmt.author.id, elmt.author.avatar);
+        message_box.appendChild(img_avatar);
+
+        //message-body
+        let message_body = document.createElement('div');
+        message_body.classList.add('message-body');
+        //message-meta
+        let message_meta = document.createElement('div');
+        message_meta.classList.add('message-meta');
+        let message_author = document.createElement('span');
+        message_author.classList.add('message-author');
+        message_author.innerText = elmt.author.username + '#' + elmt.author.discriminator;
+        let message_date = document.createElement('span');
+        message_date.classList.add('message-date');
+        let day = new Date(elmt.timestamp);
+        message_date.innerText = `${day.toLocaleDateString()} ${day.toLocaleTimeString()}`;
+        message_meta.appendChild(message_author);
+        message_meta.appendChild(message_date);
+        message_body.appendChild(message_meta);
+        message_box.appendChild(message_body);
+
+        //message-content
+        let message_content = document.createElement('div');
+        message_content.classList.add('message-content');
+        let span_content = document.createElement('span');
+        span_content.innerText = elmt.content;
+        message_content.appendChild(span_content);
+        message_body.appendChild(message_content);
+
+        //message-embeded
+        let message_embed = document.createElement('div');
+        message_embed.classList.add('message-embeded');
+        elmt.embeds.forEach(embed_elmt => {
+            let embed_container = document.createElement('div');
+            embed_container.classList.add('embed-container');
+            message_embed.appendChild(embed_container);
+
+            if (embed_elmt.title) {
+                let embed_text = document.createElement('div');
+                embed_text.classList.add('embed-text');
+                embed_text.innerText = embed_elmt.title;
+                embed_container.appendChild(embed_text);
+            }
+
+            if (embed_elmt.description) {
+                let embed_desc = document.createElement('div');
+                embed_desc.classList.add('embed-description');
+                embed_desc.innerText = embed_elmt.description;
+                embed_container.appendChild(embed_desc);
+            }
+
+            let embed_thumbnail = document.createElement('div');
+            embed_thumbnail.classList.add('embed-thumbnail');
+            let link = document.createElement('a');
+            link.target = '_blank';
+            if (embed_elmt.video) {
+                link.href = embed_elmt.video.url;
+            } else if (embed_elmt.image) {
+                link.href = embed_elmt.image.url;
+
+            }
+
+            if (embed_elmt.thumbnail && embed_elmt.thumbnail.url) {
+                let img_link = document.createElement('img');
+                img_link.classList.add('thumbnail-image')
+                img_link.src = embed_elmt.thumbnail.url;
+                link.appendChild(img_link);
+                embed_thumbnail.appendChild(link);
+                embed_container.appendChild(embed_thumbnail);
+            }
+
+
+            if (embed_elmt.image) {
+                let embed_image_box = document.createElement('div');
+                embed_image_box.classList.add('embed-image-box')
+                let img_link = document.createElement('img');
+                img_link.classList.add('embed-image')
+                img_link.src = embed_elmt.image.url;
+                link.appendChild(img_link);
+                embed_image_box.appendChild(link);
+                embed_container.appendChild(embed_image_box);
+            }
+
+
+            message_body.appendChild(message_embed);
+        });
+
+        //attachments
+        let message_attach = document.createElement('div');
+        elmt.attachments.forEach(attach_elmt => {
+            let attach_container = document.createElement('div');
+            attach_container.classList.add('attach-container');
+            message_attach.appendChild(attach_container);
+
+            let link = document.createElement('a');
+            link.target = '_blank';
+            if (['image/png', 'image/jpg', 'image/jpeg', 'image/gif'].includes(attach_elmt.content_type)) {
+                let img_link = document.createElement('img');
+                img_link.src = attach_elmt.url;
+
+                link.appendChild(img_link);
+                attach_container.appendChild(link);
+            }
+
+            message_body.appendChild(message_attach);
+        });
+
+
+        msg_list_container.appendChild(message_box);
+    });
+</script>
+
+</html>
